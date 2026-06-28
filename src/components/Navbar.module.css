@@ -2,9 +2,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--primary);
+  padding: 0rem 2rem;
 }
 
 .auth {
   display: flex;
   gap: 1rem;
+}
+
+.main {
+  font-weight: 600;
+}
+
+.link {
+  transition: color 200ms ease-in-out;
+
+  &:hover {
+    color: var(--text-600);
+    transition: color 200ms ease-in-out;
+  }
 }

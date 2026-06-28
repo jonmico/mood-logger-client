@@ -1,15 +1,21 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div>
-        <NavLink to="/">Mood Logger</NavLink>
+        <Link className={`${styles.link} ${styles.main}`} to="/">
+          Mood Logger
+        </Link>
       </div>
       <div className={styles.auth}>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink className={styles.link} to="/login">
+          Login
+        </NavLink>
+        <NavLink className={styles.link} to="/register">
+          Register
+        </NavLink>
       </div>
     </nav>
   );

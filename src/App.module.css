@@ -1,6 +1,5 @@
 .app {
-  padding: 1rem;
   display: grid;
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: 75px 1fr;
   min-height: 100vh;
 }

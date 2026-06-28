@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Index from "./pages/Index";
 import "./styles/reset.css";
 import "./styles/global.css";
+import "@fontsource-variable/inter/wght.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
