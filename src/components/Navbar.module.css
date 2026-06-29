@@ -4,6 +4,7 @@
   align-items: center;
   border-bottom: 1px solid var(--primary);
   padding: 0rem 2rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
 .auth {
