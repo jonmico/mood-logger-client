@@ -17,8 +17,6 @@ const initialFormState: FormState = {
 export default function Register() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
 
-  console.log(formState);
-
   function handleFormStateChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => {
       return { ...prevState, [evt.target.name]: evt.target.value };
@@ -28,9 +26,7 @@ export default function Register() {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    console.log(formState);
-
-    register(formState.email, formState.password);
+    await register(formState.email, formState.password);
   }
 
   return (
