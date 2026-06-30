@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./Register.module.css";
+import { register } from "../services/auth/register";
 
 interface FormState {
   email: string;
@@ -23,11 +24,20 @@ export default function Register() {
       return { ...prevState, [evt.target.name]: evt.target.value };
     });
   }
+
+  async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    console.log(formState);
+
+    register(formState.email, formState.password);
+  }
+
   return (
     <div className={styles.registerPageContainer}>
       <div className={styles.registerFormContainer}>
         <h1>Register</h1>
-        <form className={styles.registerForm}>
+        <form className={styles.registerForm} onSubmit={handleSubmit}>
           <div className={styles.formInputContainer}>
             <label htmlFor="email">Email</label>
             <input
@@ -47,6 +57,7 @@ export default function Register() {
               name="password"
               required
               placeholder="Something secure."
+              onChange={handleFormStateChange}
             />
           </div>
           <div className={styles.formInputContainer}>
@@ -57,6 +68,7 @@ export default function Register() {
               name="confirmPassword"
               required
               placeholder="Can you type it securely again?"
+              onChange={handleFormStateChange}
             />
           </div>
           <button className={styles.button} type="submit">
