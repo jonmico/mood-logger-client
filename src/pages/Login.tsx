@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
-
-// TODO: Write handleSubmit function.
+import { login } from "../services/auth/login";
 
 interface LoginFormState {
   email: string;
@@ -25,10 +24,10 @@ export default function Login() {
     }));
   }
 
-  function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    console.log(loginFormState);
+    await login(loginFormState.email, loginFormState.password);
   }
 
   return (
