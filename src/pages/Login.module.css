@@ -49,3 +49,19 @@
     }
   }
 }
+
+.button {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary-600);
+  border-radius: 4px;
+  padding: 6px 8px;
+  transition:
+    background-color,
+    border 200ms ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--secondary-300);
+    border: 1px solid var(--secondary-700);
+  }
+}

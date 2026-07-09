@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "./Login.module.css";
 
 // TODO: Write handleSubmit function.
-// TODO: Style button.
 
 interface LoginFormState {
   email: string;
@@ -55,7 +54,9 @@ export default function Login() {
               onChange={handleOnChange}
             />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" className={styles.button}>
+            Login
+          </button>
         </form>
       </div>
     </div>
