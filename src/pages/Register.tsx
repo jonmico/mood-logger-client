@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Register.module.css";
 import { register } from "../services/auth/register";
+import { useNavigate } from "react-router";
 
 interface FormState {
   email: string;
@@ -16,6 +17,7 @@ const initialFormState: FormState = {
 
 export default function Register() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
+  const navigate = useNavigate();
 
   function handleFormStateChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => {
@@ -26,7 +28,9 @@ export default function Register() {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    await register(formState.email, formState.password);
+    const registerData = await register(formState.email, formState.password);
+
+    if (registerData.ok) return navigate("/dashboard");
   }
 
   return (

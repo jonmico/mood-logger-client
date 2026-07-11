@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
 import { login } from "../services/auth/login";
+import { useNavigate } from "react-router";
 
 interface LoginFormState {
   email: string;
@@ -16,6 +17,7 @@ export default function Login() {
   const [loginFormState, setLoginFormState] = useState<LoginFormState>(
     initialLoginFormState,
   );
+  const navigate = useNavigate();
 
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setLoginFormState((prevState) => ({
@@ -27,7 +29,12 @@ export default function Login() {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    await login(loginFormState.email, loginFormState.password);
+    const loginData = await login(
+      loginFormState.email,
+      loginFormState.password,
+    );
+
+    if (loginData.ok) return navigate("/dashboard");
   }
 
   return (
