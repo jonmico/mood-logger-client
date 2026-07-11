@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import "./styles/reset.css";
 import "./styles/global.css";
 import "@fontsource-variable/inter/wght.css";
+import ProtectedLayout from "./layouts/ProtectedLayout";
+import Dashboard from "./pages/Dashboard";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +19,9 @@ createRoot(document.getElementById("root")!).render(
           <Route index element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route element={<ProtectedLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
