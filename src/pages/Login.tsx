@@ -12,12 +12,17 @@ const initialLoginFormState: LoginFormState = {
   password: "",
 };
 
+// TODO: Style error message.
+// TODO: Style form being disabled when submitting.
+// TODO: Finally make a spinner for the Login button.
+
 export default function Login() {
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [loginFormState, setLoginFormState] = useState<LoginFormState>(
     initialLoginFormState,
   );
+  const [loginFormError, setLoginFormError] = useState("");
 
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setLoginFormState((prevState) => ({
@@ -30,7 +35,14 @@ export default function Login() {
     evt.preventDefault();
 
     setIsLoading(true);
-    await login(loginFormState.email, loginFormState.password);
+    // FIXME: Remove this after styling is done.
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const data = await login(loginFormState.email, loginFormState.password);
+
+    if (data) {
+      setLoginFormError(data.message);
+    }
+
     setIsLoading(false);
   }
 
@@ -38,6 +50,7 @@ export default function Login() {
     <div className={styles.loginPageContainer}>
       <div className={styles.loginFormContainer}>
         <h1>Login</h1>
+        {loginFormError && <div>{loginFormError}</div>}
         <form className={styles.loginForm} onSubmit={handleSubmit}>
           <div className={styles.formInputContainer}>
             <label htmlFor="email">Email</label>

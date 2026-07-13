@@ -13,12 +13,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [userId, setUserId] = useState("");
   const navigate = useNavigate();
 
-  async function login(email: string, password: string) {
-    const loginData = await apiLogin(email, password);
+  async function login(
+    email: string,
+    password: string,
+  ): Promise<void | { message: string }> {
+    const result = await apiLogin(email, password);
 
-    if (loginData.ok) {
-      setUserId(loginData.data.userId);
+    if (result.ok === true) {
+      setUserId(result.userId);
+      setIsLoggedIn(true);
+      setIsLoading(false);
       return navigate("/dashboard");
+    } else {
+      return { message: result.message };
     }
   }
 
