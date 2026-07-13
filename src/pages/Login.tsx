@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
 import { useAuth } from "../hooks/useAuth";
+import { Loader2 } from "lucide-react";
 
 interface LoginFormState {
   email: string;
@@ -12,17 +13,19 @@ const initialLoginFormState: LoginFormState = {
   password: "",
 };
 
-// TODO: Style error message.
-// TODO: Style form being disabled when submitting.
-// TODO: Finally make a spinner for the Login button.
+const initialLoginFormErrorsState: LoginFormState = {
+  email: "",
+  password: "",
+};
 
 export default function Login() {
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [loginFormState, setLoginFormState] = useState<LoginFormState>(
-    initialLoginFormState,
+  const [loginFormState, setLoginFormState] = useState(initialLoginFormState);
+  const [loginFormErrors, setLoginFormErrors] = useState(
+    initialLoginFormErrorsState,
   );
-  const [loginFormError, setLoginFormError] = useState("");
+  const [loginServerError, setloginServerError] = useState("");
 
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setLoginFormState((prevState) => ({
@@ -34,13 +37,30 @@ export default function Login() {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
+    const errors = { email: "", password: "" };
+
+    if (
+      loginFormState.email.trim() === "" ||
+      !loginFormState.email.includes("@")
+    ) {
+      errors.email = "Please enter a valid email.";
+    }
+
+    if (loginFormState.password.trim() === "") {
+      errors.password = "Please enter your password.";
+    }
+
+    setLoginFormErrors(errors);
+
+    if (errors.email || errors.password) return;
+
     setIsLoading(true);
     // FIXME: Remove this after styling is done.
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const data = await login(loginFormState.email, loginFormState.password);
 
     if (data) {
-      setLoginFormError(data.message);
+      setloginServerError(data.message);
     }
 
     setIsLoading(false);
@@ -50,28 +70,39 @@ export default function Login() {
     <div className={styles.loginPageContainer}>
       <div className={styles.loginFormContainer}>
         <h1>Login</h1>
-        {loginFormError && <div>{loginFormError}</div>}
+        {loginServerError && (
+          <div className={styles.error}>{loginServerError}</div>
+        )}
         <form className={styles.loginForm} onSubmit={handleSubmit}>
           <div className={styles.formInputContainer}>
             <label htmlFor="email">Email</label>
             <input
+              disabled={isLoading}
               name="email"
               id="email"
               type="email"
               onChange={handleOnChange}
             />
+            {loginFormErrors.email && (
+              <div className={styles.error}>{loginFormErrors.email}</div>
+            )}
           </div>
           <div className={styles.formInputContainer}>
             <label htmlFor="password">Password</label>
+
             <input
+              disabled={isLoading}
               name="password"
               id="password"
               type="password"
               onChange={handleOnChange}
             />
+            {loginFormErrors.password && (
+              <div className={styles.error}>{loginFormErrors.password}</div>
+            )}
           </div>
           <button disabled={isLoading} type="submit" className={styles.button}>
-            Login
+            {isLoading ? <Loader2 className={styles.spinner} /> : "Login"}
           </button>
         </form>
       </div>
