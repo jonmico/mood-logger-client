@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
-import { login } from "../services/auth/login";
-import { useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 interface LoginFormState {
   email: string;
@@ -14,10 +13,11 @@ const initialLoginFormState: LoginFormState = {
 };
 
 export default function Login() {
+  const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [loginFormState, setLoginFormState] = useState<LoginFormState>(
     initialLoginFormState,
   );
-  const navigate = useNavigate();
 
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setLoginFormState((prevState) => ({
@@ -29,12 +29,9 @@ export default function Login() {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    const loginData = await login(
-      loginFormState.email,
-      loginFormState.password,
-    );
-
-    if (loginData.ok) return navigate("/dashboard");
+    setIsLoading(true);
+    await login(loginFormState.email, loginFormState.password);
+    setIsLoading(false);
   }
 
   return (
@@ -60,7 +57,7 @@ export default function Login() {
               onChange={handleOnChange}
             />
           </div>
-          <button type="submit" className={styles.button}>
+          <button disabled={isLoading} type="submit" className={styles.button}>
             Login
           </button>
         </form>

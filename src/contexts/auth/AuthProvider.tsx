@@ -1,15 +1,7 @@
-import { createContext, useState } from "react";
-
-interface IntAuthContext {
-  isLoggedIn: boolean;
-  isLoading: boolean;
-  userId: string;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-}
-
-const AuthContext = createContext<IntAuthContext | null>(null);
+import { useState } from "react";
+import { AuthContext } from "./AuthContext";
+import { apiLogin } from "../../services/auth/apiLogin";
+import { useNavigate } from "react-router";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -17,11 +9,17 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
 
   async function login(email: string, password: string) {
-    //TODO: Write this.
+    const loginData = await apiLogin(email, password);
+
+    if (loginData.ok) {
+      setUserId(loginData.data.userId);
+      return navigate("/dashboard");
+    }
   }
 
   async function register(email: string, password: string) {
@@ -33,5 +31,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   const value = { isLoggedIn, isLoading, userId, login, register, logout };
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
