@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { apiLogin } from "../../services/auth/apiLogin";
 import { useNavigate } from "react-router";
+import { apiRegister } from "../../services/auth/apiRegister";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (result.ok === true) {
       setUserId(result.userId);
       setIsLoggedIn(true);
+      // This isLoading flag might be weird.
       setIsLoading(false);
       return navigate("/dashboard");
     } else {
@@ -30,7 +32,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function register(email: string, password: string) {
-    //TODO: Write this.
+    const result = await apiRegister(email, password);
+
+    if (result.ok === true) {
+      setUserId(result.userId);
+      setIsLoggedIn(true);
+      // This isLoading flag might be weird.
+      setIsLoading(false);
+      return navigate("/dashboard");
+    } else {
+      return { error: result.error };
+    }
   }
 
   async function logout() {

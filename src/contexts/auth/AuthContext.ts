@@ -8,7 +8,10 @@ interface IntAuthContext {
     email: string,
     password: string,
   ) => Promise<void | { message: string }>;
-  register: (email: string, password: string) => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+  ) => Promise<void | { error: string }>;
   logout: () => Promise<void>;
 }
 
