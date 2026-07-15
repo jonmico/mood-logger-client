@@ -5,10 +5,7 @@ interface IntAuthContext {
   isLoading: boolean;
   userId: string;
   firstName: string;
-  login: (
-    email: string,
-    password: string,
-  ) => Promise<void | { message: string }>;
+  login: (email: string, password: string) => Promise<void | { error: string }>;
   register: (
     email: string,
     firstName: string,

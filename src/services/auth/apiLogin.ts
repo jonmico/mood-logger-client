@@ -1,11 +1,12 @@
 interface LoginSuccess {
   ok: true;
   userId: string;
+  firstName: string;
 }
 
 interface LoginFailure {
   ok: false;
-  message: string;
+  error: string;
 }
 
 export async function apiLogin(
@@ -18,12 +19,11 @@ export async function apiLogin(
     headers: { "Content-Type": "application/json" },
   });
 
-  // There are hardcoded values here and that freaks me out a little bit.
   if (res.ok) {
-    const data: { userId: string } = await res.json();
-    return { ok: true, userId: data.userId };
+    const data: { userId: string; firstName: string } = await res.json();
+    return { ok: true, userId: data.userId, firstName: data.firstName };
   } else {
-    const data: { message: string } = await res.json();
-    return { ok: false, message: data.message };
+    const data: { error: string } = await res.json();
+    return { ok: false, error: data.error };
   }
 }
