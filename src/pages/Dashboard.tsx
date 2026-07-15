@@ -1,3 +1,6 @@
+import { useAuth } from "../hooks/useAuth";
+
 export default function Dashboard() {
-  return <div>This is the Dashboard Page!</div>;
+  const { firstName } = useAuth();
+  return <div>Hello, {firstName}! Welcome to Mood Logger!</div>;
 }

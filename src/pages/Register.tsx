@@ -74,7 +74,11 @@ export default function Register() {
       return;
 
     setIsLoading(true);
-    const data = await register(formState.email, formState.password);
+    const data = await register(
+      formState.email,
+      formState.firstName,
+      formState.password,
+    );
 
     if (data) {
       setServerError(data.error);

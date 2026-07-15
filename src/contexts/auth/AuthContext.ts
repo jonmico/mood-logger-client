@@ -4,12 +4,14 @@ interface IntAuthContext {
   isLoggedIn: boolean;
   isLoading: boolean;
   userId: string;
+  firstName: string;
   login: (
     email: string,
     password: string,
   ) => Promise<void | { message: string }>;
   register: (
     email: string,
+    firstName: string,
     password: string,
   ) => Promise<void | { error: string }>;
   logout: () => Promise<void>;

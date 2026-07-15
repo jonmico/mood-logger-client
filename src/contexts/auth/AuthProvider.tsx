@@ -12,6 +12,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState("");
+  const [firstName, setFirstName] = useState("");
   const navigate = useNavigate();
 
   async function login(
@@ -31,11 +32,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  async function register(email: string, password: string) {
-    const result = await apiRegister(email, password);
+  async function register(email: string, firstName: string, password: string) {
+    const result = await apiRegister(email, firstName, password);
 
     if (result.ok === true) {
       setUserId(result.userId);
+      setFirstName(result.firstName);
       setIsLoggedIn(true);
       // This isLoading flag might be weird.
       setIsLoading(false);
@@ -49,7 +51,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     //TODO: Write this.
   }
 
-  const value = { isLoggedIn, isLoading, userId, login, register, logout };
+  const value = {
+    isLoggedIn,
+    isLoading,
+    userId,
+    firstName,
+    login,
+    register,
+    logout,
+  };
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }
