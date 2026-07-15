@@ -55,8 +55,6 @@ export default function Login() {
     if (errors.email || errors.password) return;
 
     setIsLoading(true);
-    // FIXME: Remove this after styling is done.
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     const data = await login(loginFormState.email, loginFormState.password);
 
     if (data) {
