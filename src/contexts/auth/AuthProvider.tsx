@@ -14,6 +14,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,16 +25,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
         console.log(meData.error);
         setIsLoading(false);
         setIsLoggedIn(false);
-        return navigate("/login");
+        return;
       }
 
       setIsLoggedIn(true);
       setIsLoading(false);
       setUserId(meData.data.userId);
       setFirstName(meData.data.firstName);
+      setEmail(meData.data.email);
     }
     checkAuth();
-  }, [navigate]);
+  }, []);
 
   async function login(
     email: string,
@@ -77,6 +79,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     isLoading,
     userId,
     firstName,
+    email,
     login,
     register,
     logout,

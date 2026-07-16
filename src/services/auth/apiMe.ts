@@ -1,6 +1,6 @@
 interface MeSuccess {
   ok: true;
-  data: { userId: string; firstName: string };
+  data: { userId: string; firstName: string; email: string };
 }
 
 interface MeFailure {
@@ -16,10 +16,15 @@ export async function apiMe(): Promise<MeSuccess | MeFailure> {
   });
 
   if (res.ok === true) {
-    const meData: { userId: string; firstName: string } = await res.json();
+    const meData: { userId: string; firstName: string; email: string } =
+      await res.json();
     return {
       ok: true,
-      data: { userId: meData.userId, firstName: meData.firstName },
+      data: {
+        userId: meData.userId,
+        firstName: meData.firstName,
+        email: meData.email,
+      },
     };
   } else {
     const meData: { error: string } = await res.json();

@@ -64,7 +64,7 @@ export default function Login() {
     const data = await login(loginFormState.email, loginFormState.password);
 
     if (data) {
-      setloginServerError(data.message);
+      setloginServerError(data.error);
     }
 
     setIsLoading(false);
