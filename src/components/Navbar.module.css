@@ -29,4 +29,32 @@
   display: flex;
   gap: 4px;
   cursor: pointer;
+  position: relative;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 4px;
+  background-color: var(--background-50);
+}
+
+.dropdownUserEmail {
+  padding: 4px;
+  border-bottom: 1px solid var(--primary);
+}
+
+.dropdownNav {
+  padding: 4px;
+  border-bottom: 1px solid var(--primary);
+}
+
+.dropdownLogout {
+  padding: 4px;
 }

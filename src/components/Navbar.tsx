@@ -5,7 +5,7 @@ import { CircleUserRound } from "lucide-react";
 import { useState } from "react";
 
 export default function Navbar() {
-  const { isLoggedIn, firstName } = useAuth();
+  const { isLoggedIn, firstName, email } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClick() {
@@ -32,7 +32,7 @@ export default function Navbar() {
         ) : (
           <div className={styles.user} onClick={handleClick}>
             <CircleUserRound />
-            {isOpen && <DropDown />}
+            {isOpen && <Dropdown firstName={firstName} email={email} />}
           </div>
         )}
       </div>
@@ -40,6 +40,28 @@ export default function Navbar() {
   );
 }
 
-function DropDown() {
-  return <div onClick={(evt) => evt.stopPropagation()}></div>;
+interface DropdownProps {
+  email: string;
+  firstName: string;
+}
+
+function Dropdown(props: DropdownProps) {
+  return (
+    <div className={styles.dropdown} onClick={(evt) => evt.stopPropagation()}>
+      <div className={styles.dropdownUserEmail}>
+        <div>{props.firstName}</div>
+        <div>{props.email}</div>
+      </div>
+      <div>
+        <nav className={styles.dropdownNav}>
+          <ul>
+            <li>My Moods</li>
+            <li>Edit Profile</li>
+            <li>Settings</li>
+          </ul>
+        </nav>
+      </div>
+      <div className={styles.dropdownLogout}>Logout</div>
+    </div>
+  );
 }
