@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Register.module.css";
 import { useAuth } from "../hooks/useAuth";
 import { Loader2 } from "lucide-react";
+import { useNavigate } from "react-router";
 
 interface FormState {
   email: string;
@@ -29,7 +30,12 @@ export default function Register() {
   const [serverError, setServerError] = useState("");
   const [formError, setFormError] = useState(initialFormError);
   const [isLoading, setIsLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard");
+  }, [isLoggedIn, navigate]);
 
   function handleFormStateChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => {

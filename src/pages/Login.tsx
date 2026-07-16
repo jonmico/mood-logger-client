@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import { useAuth } from "../hooks/useAuth";
 import { Loader2 } from "lucide-react";
+import { useNavigate } from "react-router";
 
 interface LoginFormState {
   email: string;
@@ -19,13 +20,18 @@ const initialLoginFormErrorsState: LoginFormState = {
 };
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, isLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [loginFormState, setLoginFormState] = useState(initialLoginFormState);
   const [loginFormErrors, setLoginFormErrors] = useState(
     initialLoginFormErrorsState,
   );
   const [loginServerError, setloginServerError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard");
+  }, [isLoggedIn, navigate]);
 
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setLoginFormState((prevState) => ({
