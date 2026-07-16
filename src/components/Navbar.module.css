@@ -24,3 +24,9 @@
     transition: color 200ms ease-in-out;
   }
 }
+
+.user {
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+}
