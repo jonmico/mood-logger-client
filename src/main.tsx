@@ -11,6 +11,9 @@ import "@fontsource-variable/inter/wght.css";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./contexts/auth/AuthProvider";
+import AppLayout from "./layouts/AppLayout";
+import History from "./pages/History";
+import Chart from "./pages/Chart";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -22,7 +25,11 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route element={<ProtectedLayout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route element={<AppLayout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/history" element={<History />} />
+                <Route path="/chart" element={<Chart />} />
+              </Route>
             </Route>
           </Route>
         </Routes>

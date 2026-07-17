@@ -1,0 +1,26 @@
+.container {
+  border-right: 1px solid var(--primary);
+  padding: 1rem;
+}
+
+.wrapper {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.link {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 8px;
+  transition: background-color 200ms ease-in-out;
+
+  &:hover {
+    background-color: var(--background-50);
+  }
+
+  &.active {
+    background-color: var(--background-100);
+  }
+}

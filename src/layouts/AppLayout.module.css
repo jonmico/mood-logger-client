@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  /*I do not know why 100vh works here*/
+  height: 100vh;
+}
+
+.wrapper {
+  padding: 1rem;
+}
