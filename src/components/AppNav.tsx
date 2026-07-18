@@ -21,7 +21,7 @@ export default function AppNav() {
         </li>
         <li>
           <NavLink
-            to={"/history"}
+            to={"/moods"}
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }

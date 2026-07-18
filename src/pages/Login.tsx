@@ -4,6 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router";
 
+// TODO: Add value attributes to form.
+
 interface LoginFormState {
   email: string;
   password: string;

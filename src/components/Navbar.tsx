@@ -8,6 +8,8 @@ export default function Navbar() {
   const { isLoggedIn, firstName, email } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
+  const link = isLoggedIn ? "/dashboard" : "/";
+
   function handleClick() {
     setIsOpen(!isOpen);
   }
@@ -15,7 +17,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div>
-        <Link className={`${styles.link} ${styles.main}`} to="/">
+        <Link className={`${styles.link} ${styles.main}`} to={link}>
           Mood Logger
         </Link>
       </div>
