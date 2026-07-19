@@ -12,37 +12,63 @@ export default function CreateMood() {
   }
 
   return (
-    <div>
+    <div className={styles.createMoodContainer}>
       <h1>How are you feeling, {firstName}? </h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <button type="button" onClick={() => setMood(1)}>
+      <form onSubmit={handleSubmit} className={styles.createMoodFormWrapper}>
+        <div className={styles.emojiWrapper}>
+          <EmojiButton mood={mood} moodValue={1} setMood={setMood}>
             {"😄"}
-          </button>
-          <button type="button" onClick={() => setMood(2)}>
+          </EmojiButton>
+          <EmojiButton mood={mood} moodValue={2} setMood={setMood}>
             {"🙂"}
-          </button>
-          <button type="button" onClick={() => setMood(3)}>
+          </EmojiButton>
+          <EmojiButton mood={mood} moodValue={3} setMood={setMood}>
             {"😐"}
-          </button>
-          <button type="button" onClick={() => setMood(4)}>
+          </EmojiButton>
+          <EmojiButton mood={mood} moodValue={4} setMood={setMood}>
             {"😞"}
-          </button>
-          <button type="button" onClick={() => setMood(5)}>
+          </EmojiButton>
+          <EmojiButton mood={mood} moodValue={5} setMood={setMood}>
             {"😭"}
-          </button>
+          </EmojiButton>
         </div>
-        <div>
+        <div className={styles.textAreaWrapper}>
           <label htmlFor="notes">Notes</label>
           <textarea
+            rows={5}
             id="notes"
             name="notes"
             value={text}
             onChange={(evt) => setText(evt.target.value)}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button className={styles.submitButton} type="submit">
+          Submit
+        </button>
       </form>
     </div>
+  );
+}
+
+interface EmojiButtonProps {
+  children: React.ReactNode;
+  setMood: React.Dispatch<React.SetStateAction<number | null>>;
+  moodValue: number;
+  mood: number | null;
+}
+
+function EmojiButton(props: EmojiButtonProps) {
+  const isActive = props.mood === props.moodValue;
+
+  return (
+    <button
+      className={
+        isActive ? `${styles.emojiButton} ${styles.active}` : styles.emojiButton
+      }
+      type="button"
+      onClick={() => props.setMood(props.moodValue)}
+    >
+      {props.children}
+    </button>
   );
 }
