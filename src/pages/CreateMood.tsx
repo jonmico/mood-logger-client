@@ -1,14 +1,28 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import styles from "./CreateMood.module.css";
+import { apiCreateMood } from "../services/moods/apiCreateMood";
+import { useNavigate } from "react-router";
 
 export default function CreateMood() {
   const [mood, setMood] = useState<null | number>(null);
   const [text, setText] = useState("");
   const { firstName } = useAuth();
+  const navigate = useNavigate();
 
-  function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
+
+    // TODO: Add better validation.
+    if (!mood) {
+      return;
+    }
+
+    const submitData = await apiCreateMood(mood, text);
+
+    if (submitData.ok) {
+      return navigate("/dashboard");
+    }
   }
 
   return (
