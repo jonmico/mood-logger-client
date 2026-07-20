@@ -7,14 +7,24 @@ import { useNavigate } from "react-router";
 export default function CreateMood() {
   const [mood, setMood] = useState<null | number>(null);
   const [text, setText] = useState("");
+  const [moodError, setMoodError] = useState("");
   const { firstName } = useAuth();
   const navigate = useNavigate();
+
+  function handleClick(num: number) {
+    if (moodError) {
+      setMoodError("");
+    }
+
+    setMood(num);
+  }
 
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     // TODO: Add better validation.
     if (!mood) {
+      setMoodError("Please select an emoji.");
       return;
     }
 
@@ -30,21 +40,24 @@ export default function CreateMood() {
       <h1>How are you feeling, {firstName}? </h1>
       <form onSubmit={handleSubmit} className={styles.createMoodFormWrapper}>
         <div className={styles.emojiWrapper}>
-          <EmojiButton mood={mood} moodValue={1} setMood={setMood}>
-            {"😄"}
-          </EmojiButton>
-          <EmojiButton mood={mood} moodValue={2} setMood={setMood}>
-            {"🙂"}
-          </EmojiButton>
-          <EmojiButton mood={mood} moodValue={3} setMood={setMood}>
-            {"😐"}
-          </EmojiButton>
-          <EmojiButton mood={mood} moodValue={4} setMood={setMood}>
-            {"😞"}
-          </EmojiButton>
-          <EmojiButton mood={mood} moodValue={5} setMood={setMood}>
-            {"😭"}
-          </EmojiButton>
+          <div className={styles.emojiButtonWrapper}>
+            <EmojiButton mood={mood} moodValue={1} handleClick={handleClick}>
+              {"😄"}
+            </EmojiButton>
+            <EmojiButton mood={mood} moodValue={2} handleClick={handleClick}>
+              {"🙂"}
+            </EmojiButton>
+            <EmojiButton mood={mood} moodValue={3} handleClick={handleClick}>
+              {"😐"}
+            </EmojiButton>
+            <EmojiButton mood={mood} moodValue={4} handleClick={handleClick}>
+              {"😞"}
+            </EmojiButton>
+            <EmojiButton mood={mood} moodValue={5} handleClick={handleClick}>
+              {"😭"}
+            </EmojiButton>
+          </div>
+          {moodError && <div className={styles.error}>{moodError}</div>}
         </div>
         <div className={styles.textAreaWrapper}>
           <label htmlFor="notes">Notes</label>
@@ -66,7 +79,7 @@ export default function CreateMood() {
 
 interface EmojiButtonProps {
   children: React.ReactNode;
-  setMood: React.Dispatch<React.SetStateAction<number | null>>;
+  handleClick: (num: number) => void;
   moodValue: number;
   mood: number | null;
 }
@@ -80,7 +93,7 @@ function EmojiButton(props: EmojiButtonProps) {
         isActive ? `${styles.emojiButton} ${styles.active}` : styles.emojiButton
       }
       type="button"
-      onClick={() => props.setMood(props.moodValue)}
+      onClick={() => props.handleClick(props.moodValue)}
     >
       {props.children}
     </button>
