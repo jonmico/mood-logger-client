@@ -22,7 +22,6 @@ export default function CreateMood() {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    // TODO: Add better validation.
     if (!mood) {
       setMoodError("Please select an emoji.");
       return;
