@@ -4,43 +4,49 @@ import { apiGetMoods } from "../services/moods/apiGetMoods";
 import type { Mood } from "../types/mood";
 import { getMoodEmoji } from "../utils/getMoodEmoji";
 
+// TODO: Come up with some type of layout for Dashboard.
+
 export default function Dashboard() {
   const { firstName } = useAuth();
-  const [moods, setMoods] = useState<Mood[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function getMoods() {
-      const data = await apiGetMoods(1);
-      setMoods(data.moods);
-      setIsLoading(false);
-    }
-    getMoods();
-  }, []);
-
-  const mood = moods[0];
 
   return (
     <div>
-      {isLoading ? (
-        "Loading..."
-      ) : (
-        <>
-          <div>Hello, {firstName}! Welcome to Mood Logger!</div>
-          <div>
-            <h2>Most recent mood:</h2>
-            <div>
-              <div>Mood rating: {getMoodEmoji(mood.mood)}</div>
-              <div>Mood notes: {mood.notes}</div>
-              <div>Mood created: {mood.created_at}</div>
-            </div>
-          </div>
-        </>
-      )}
+      <div>Hello, {firstName}! Welcome to Mood Logger!</div>
+      <RecentMood />
     </div>
   );
 }
 
+// TODO: Make RecentMood look a little prettier.
+
 function RecentMood() {
-  const [mood, setMood] = useState();
+  const [mood, setMood] = useState<Mood | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getMood() {
+      const data = await apiGetMoods(1);
+
+      const [dataMood] = data.moods;
+
+      setMood(dataMood);
+      setIsLoading(false);
+    }
+    getMood();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!mood) {
+    return <div>You have not logged any moods yet!</div>;
+  }
+
+  return (
+    <div>
+      <div>Mood: {getMoodEmoji(mood.mood)}</div>
+      <div>Notes: {mood.notes}</div>
+    </div>
+  );
 }
