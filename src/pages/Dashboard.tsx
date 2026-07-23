@@ -4,6 +4,8 @@ import { apiGetMoods } from "../services/moods/apiGetMoods";
 import type { Mood } from "../types/mood";
 import { getMoodEmoji } from "../utils/getMoodEmoji";
 import styles from "./Dashboard.module.css";
+import { Link } from "react-router";
+import { StickyNotePlus } from "lucide-react";
 
 // TODO: Come up with some type of layout for Dashboard.
 
@@ -12,9 +14,17 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1 className={styles.dashboardHeader}>
-        Hello, {firstName}! Welcome to Mood Logger!
-      </h1>
+      <div className={styles.dashboardHeaderWrapper}>
+        <h1>Hello, {firstName}! Welcome to Mood Logger!</h1>
+        <div>
+          <Link to={"/moods/create"} className={styles.link}>
+            <div>
+              <StickyNotePlus />
+            </div>
+            <div>Add Mood</div>
+          </Link>
+        </div>
+      </div>
       <RecentMood />
     </div>
   );
@@ -60,12 +70,9 @@ function RecentMood() {
             <div className={styles.notesText}>{mood.notes}</div>
           </div>
           <div>
-            <button className={styles.viewMoodButton}>View Mood</button>
+            <Link className={styles.link}>View Mood</Link>
           </div>
         </div>
-      </div>
-      <div className={styles.buttonWrapper}>
-        <button>Add Mood</button>
       </div>
     </div>
   );
