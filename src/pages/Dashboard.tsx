@@ -70,7 +70,9 @@ function RecentMood() {
             <div className={styles.notesText}>{mood.notes}</div>
           </div>
           <div>
-            <Link className={styles.link}>View Mood</Link>
+            <Link to={`/moods/${mood.id}`} className={styles.link}>
+              View Mood
+            </Link>
           </div>
         </div>
       </div>
