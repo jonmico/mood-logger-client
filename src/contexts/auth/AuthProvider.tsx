@@ -4,6 +4,7 @@ import { apiLogin } from "../../services/auth/apiLogin";
 import { useNavigate } from "react-router";
 import { apiRegister } from "../../services/auth/apiRegister";
 import { apiMe } from "../../services/auth/apiMe";
+import { apiLogout } from "../../services/auth/apiLogout";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -47,6 +48,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUserId(result.userId);
       setFirstName(result.firstName);
       setIsLoggedIn(true);
+      // TODO: We need to make sure we are returning email from backend and set email.
       // This isLoading flag might be weird.
       setIsLoading(false);
       return navigate("/dashboard");
@@ -71,7 +73,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function logout() {
-    //TODO: Write this.
+    const result = apiLogout();
+    console.log(result);
+
+    setUserId("");
+    setEmail("");
+    setFirstName("");
+    setIsLoggedIn(false);
+    return navigate("/login");
   }
 
   const value = {
