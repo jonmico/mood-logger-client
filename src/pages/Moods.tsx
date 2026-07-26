@@ -26,7 +26,35 @@ export default function Moods() {
   //TODO: This is a placeholder loading state.
   if (isLoading) return <div>Loading...</div>;
 
-  const groupedMoods = groupMoodsByDay(moods);
+  return (
+    <div className={styles.container}>
+      <div>
+        <h2>This is the Moods page!</h2>
+        {moods.length === 0 ? (
+          <div>
+            <div>It looks like you have not created any moods yet!</div>
+            <div>
+              Click <Link to={"create"}>here</Link> to log your first mood.
+            </div>
+          </div>
+        ) : (
+          <MoodsList moods={moods} />
+        )}
+      </div>
+      <Link to={"create"} className={styles.create}>
+        <PencilSparkles />
+        <div>Create Mood</div>
+      </Link>
+    </div>
+  );
+}
+
+interface MoodsListProps {
+  moods: Mood[];
+}
+
+function MoodsList(props: MoodsListProps) {
+  const groupedMoods = groupMoodsByDay(props.moods);
 
   const moodsList = Array.from(groupedMoods).map(([date, moods]) => {
     return (
@@ -46,17 +74,5 @@ export default function Moods() {
     );
   });
 
-  return (
-    <div className={styles.container}>
-      <div>
-        <h2>This is the Moods page!</h2>
-        <ul>{moodsList}</ul>
-      </div>
-
-      <Link to={"create"} className={styles.create}>
-        <PencilSparkles />
-        <div>Create Mood</div>
-      </Link>
-    </div>
-  );
+  return <ul>{moodsList}</ul>;
 }
