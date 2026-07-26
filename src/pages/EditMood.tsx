@@ -1,32 +1,24 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { apiGetMood } from "../services/moods/apiGetMood";
-
-interface FormState {
-  mood: number | string;
-  notes: string;
-}
-
-const initialFormState: FormState = {
-  mood: "",
-  notes: "",
-};
+import MoodPicker from "../components/MoodPicker";
+import { apiEditMood } from "../services/moods/apiEditMood";
 
 export default function EditMood() {
-  const [formState, setFormState] = useState(initialFormState);
+  const [notes, setNotes] = useState("");
+  const [mood, setMood] = useState<null | number>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getMood() {
       const result = await apiGetMood(params.id);
 
       if (result.ok) {
-        setFormState({
-          mood: result.mood.mood,
-          notes: result.mood.notes,
-        });
+        setNotes(result.mood.notes);
+        setMood(result.mood.mood);
         setIsLoading(false);
       } else {
         setError(result.error);
@@ -36,18 +28,25 @@ export default function EditMood() {
     getMood();
   }, [params.id]);
 
-  function handleOnChange(
-    evt: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) {
-    setFormState((prevState) => {
-      return { ...prevState, [evt.target.name]: evt.target.value };
-    });
-  }
-
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    console.log("You are submitting the form!");
+    if (!mood) {
+      return;
+    }
+
+    const result = await apiEditMood(params.id, mood, notes);
+
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+
+    navigate(`/moods/${params.id}`);
+  }
+
+  function handleClick(num: number) {
+    setMood(num);
   }
 
   if (isLoading) return <div>Loading...</div>;
@@ -57,22 +56,15 @@ export default function EditMood() {
       <div>Edit mood</div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="mood">Mood</label>
-          <input
-            id="mood"
-            name="mood"
-            type="number"
-            value={formState.mood}
-            onChange={handleOnChange}
-          />
+          <MoodPicker mood={mood} handleClick={handleClick} />
         </div>
         <div>
           <label htmlFor="notes">Notes</label>
           <textarea
             id="notes"
             name="notes"
-            value={formState.notes}
-            onChange={handleOnChange}
+            value={notes}
+            onChange={(evt) => setNotes(evt.target.value)}
           />
         </div>
         <div>

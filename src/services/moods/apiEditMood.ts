@@ -9,7 +9,7 @@ interface EditMoodFailure {
 }
 
 export async function apiEditMood(
-  id: string,
+  id: string | undefined,
   mood: number,
   notes: string,
 ): Promise<EditMoodSuccess | EditMoodFailure> {
