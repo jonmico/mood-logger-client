@@ -38,6 +38,8 @@ function RecentMood() {
 
   useEffect(() => {
     async function getMood() {
+      // TODO: Need to handle error where we are not authenticated and get redirected.
+      // (It is still trying to run this in that case.)
       const data = await apiGetMoods(1);
 
       const [dataMood] = data.moods;
