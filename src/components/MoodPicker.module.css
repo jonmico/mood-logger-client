@@ -1,0 +1,29 @@
+.emojiButtonWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 8px;
+}
+
+.emojiButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+  width: 6rem;
+  font-size: 3rem;
+  border-radius: 100%;
+  cursor: pointer;
+  border: 1px solid var(--primary-100);
+  background-color: var(--background-50);
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    border: 1px solid var(--primary-600);
+    background-color: var(--background-200);
+  }
+}
+
+.active {
+  border: 1px solid var(--primary-600);
+  background-color: var(--background-300);
+}

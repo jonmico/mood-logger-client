@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
-import styles from "./CreateMood.module.css";
-import { apiCreateMood } from "../services/moods/apiCreateMood";
 import { useNavigate } from "react-router";
+import MoodPicker from "../components/MoodPicker";
+import { useAuth } from "../hooks/useAuth";
+import { apiCreateMood } from "../services/moods/apiCreateMood";
+import styles from "./CreateMood.module.css";
 
 export default function CreateMood() {
   const [mood, setMood] = useState<null | number>(null);
@@ -39,23 +40,7 @@ export default function CreateMood() {
       <h1>How are you feeling, {firstName}? </h1>
       <form onSubmit={handleSubmit} className={styles.createMoodFormWrapper}>
         <div className={styles.emojiWrapper}>
-          <div className={styles.emojiButtonWrapper}>
-            <EmojiButton mood={mood} moodValue={1} handleClick={handleClick}>
-              {"😄"}
-            </EmojiButton>
-            <EmojiButton mood={mood} moodValue={2} handleClick={handleClick}>
-              {"🙂"}
-            </EmojiButton>
-            <EmojiButton mood={mood} moodValue={3} handleClick={handleClick}>
-              {"😐"}
-            </EmojiButton>
-            <EmojiButton mood={mood} moodValue={4} handleClick={handleClick}>
-              {"😞"}
-            </EmojiButton>
-            <EmojiButton mood={mood} moodValue={5} handleClick={handleClick}>
-              {"😭"}
-            </EmojiButton>
-          </div>
+          <MoodPicker mood={mood} handleClick={handleClick} />
           {moodError && <div className={styles.error}>{moodError}</div>}
         </div>
         <div className={styles.textAreaWrapper}>
@@ -73,28 +58,5 @@ export default function CreateMood() {
         </button>
       </form>
     </div>
-  );
-}
-
-interface EmojiButtonProps {
-  children: React.ReactNode;
-  handleClick: (num: number) => void;
-  moodValue: number;
-  mood: number | null;
-}
-
-function EmojiButton(props: EmojiButtonProps) {
-  const isActive = props.mood === props.moodValue;
-
-  return (
-    <button
-      className={
-        isActive ? `${styles.emojiButton} ${styles.active}` : styles.emojiButton
-      }
-      type="button"
-      onClick={() => props.handleClick(props.moodValue)}
-    >
-      {props.children}
-    </button>
   );
 }
