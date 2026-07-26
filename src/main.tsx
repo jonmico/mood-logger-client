@@ -16,6 +16,7 @@ import Moods from "./pages/Moods";
 import Chart from "./pages/Chart";
 import CreateMood from "./pages/CreateMood";
 import Mood from "./pages/Mood";
+import EditMood from "./pages/EditMood";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -32,6 +33,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/moods" element={<Moods />} />
                 <Route path="/moods/create" element={<CreateMood />} />
                 <Route path="/moods/:id" element={<Mood />} />
+                <Route path="/moods/:id/edit" element={<EditMood />} />
                 <Route path="/chart" element={<Chart />} />
               </Route>
             </Route>

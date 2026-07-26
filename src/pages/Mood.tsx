@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Mood } from "../types/mood";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { apiGetMood } from "../services/moods/apiGetMood";
 import { apiDeleteMood } from "../services/moods/apiDeleteMood";
 
@@ -76,8 +76,9 @@ function MoodComponent(props: MoodComponentProps) {
       <div>{props.mood.mood}</div>
       <div>{props.mood.notes}</div>
       <button disabled={isLoading} onClick={handleClick}>
-        Delete
+        Delete Mood
       </button>
+      <Link to={`/moods/${props.mood.id}/edit`}>Edit Mood</Link>
     </div>
   );
 }
