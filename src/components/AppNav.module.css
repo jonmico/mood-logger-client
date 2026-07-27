@@ -1,9 +1,9 @@
-.container {
+.appNavContainer {
   border-right: 1px solid var(--primary);
   padding: 1rem;
 }
 
-.wrapper {
+.appNavWrapper {
   display: flex;
   gap: 8px;
   flex-direction: column;
@@ -22,5 +22,32 @@
 
   &.active {
     background-color: var(--background-100);
+  }
+}
+
+@media (max-width: 768px) {
+  .link {
+    display: inline-block;
+  }
+
+  .linkText {
+    display: none;
+  }
+
+  .appNavWrapper {
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .appNavContainer {
+    grid-area: b;
+    border-right: none;
+    border-top: 1px solid var(--primary);
+  }
+
+  .appNavWrapper {
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 }

@@ -12,5 +12,5 @@ export default function ProtectedLayout() {
     }
   }, [isLoading, isLoggedIn, navigate]);
 
-  return <div>{isLoading ? <div>Loading...</div> : <Outlet />}</div>;
+  return <>{isLoading ? <div>Loading...</div> : <Outlet />}</>;
 }

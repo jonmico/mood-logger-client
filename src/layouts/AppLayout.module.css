@@ -1,10 +1,30 @@
-.container {
+.appLayoutContainer {
   display: grid;
   grid-template-columns: 300px 1fr;
   /*I do not know why 100vh works here*/
   height: 100vh;
 }
 
-.wrapper {
+.outletWrapper {
   padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .appLayoutContainer {
+    grid-template-columns: 100px 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .appLayoutContainer {
+    height: 100%;
+    grid-template-rows: 1fr 100px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "a"
+      "b";
+  }
+  .outletWrapper {
+    grid-area: a;
+  }
 }

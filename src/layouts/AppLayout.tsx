@@ -4,9 +4,9 @@ import styles from "./AppLayout.module.css";
 
 export default function AppLayout() {
   return (
-    <div className={styles.container}>
+    <div className={styles.appLayoutContainer}>
       <AppNav />
-      <div className={styles.wrapper}>
+      <div className={styles.outletWrapper}>
         <Outlet />
       </div>
     </div>

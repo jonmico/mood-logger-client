@@ -4,8 +4,8 @@ import { ClipboardClock, LayoutDashboard, TrendingUp } from "lucide-react";
 
 export default function AppNav() {
   return (
-    <nav className={styles.container}>
-      <ul className={styles.wrapper}>
+    <nav className={styles.appNavContainer}>
+      <ul className={styles.appNavWrapper}>
         <li>
           <NavLink
             to={"/dashboard"}
@@ -16,7 +16,7 @@ export default function AppNav() {
             <div>
               <LayoutDashboard />
             </div>
-            <div>Dashboard</div>
+            <div className={styles.linkText}>Dashboard</div>
           </NavLink>
         </li>
         <li>
@@ -29,7 +29,7 @@ export default function AppNav() {
             <div>
               <ClipboardClock />
             </div>
-            <div>My Moods</div>
+            <div className={styles.linkText}>My Moods</div>
           </NavLink>
         </li>
         <li>
@@ -42,7 +42,7 @@ export default function AppNav() {
             <div>
               <TrendingUp />
             </div>
-            <div>Mood Chart</div>
+            <div className={styles.linkText}>Mood Chart</div>
           </NavLink>
         </li>
       </ul>
