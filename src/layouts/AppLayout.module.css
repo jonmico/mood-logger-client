@@ -18,7 +18,7 @@
 @media (max-width: 480px) {
   .appLayoutContainer {
     height: 100%;
-    grid-template-rows: 1fr 100px;
+    grid-template-rows: 1fr 75px;
     grid-template-columns: 1fr;
     grid-template-areas:
       "a"

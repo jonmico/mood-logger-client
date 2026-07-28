@@ -4,7 +4,7 @@ import { ClipboardClock, LayoutDashboard, TrendingUp } from "lucide-react";
 
 export default function AppNav() {
   return (
-    <nav className={styles.appNavContainer}>
+    <nav className={styles.appNav}>
       <ul className={styles.appNavWrapper}>
         <li>
           <NavLink
