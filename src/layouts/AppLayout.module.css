@@ -1,8 +1,7 @@
 .appLayoutContainer {
   display: grid;
   grid-template-columns: 300px 1fr;
-  /*I do not know why 100vh works here*/
-  height: 100vh;
+  height: 100%;
 }
 
 .outletWrapper {

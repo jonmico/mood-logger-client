@@ -6,7 +6,7 @@ export default function App() {
   return (
     <div className={styles.app}>
       <Navbar />
-      <div className={styles.outlet}>
+      <div>
         <Outlet />
       </div>
     </div>
