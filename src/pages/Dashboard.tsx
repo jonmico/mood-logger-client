@@ -15,13 +15,13 @@ export default function Dashboard() {
   return (
     <div>
       <div className={styles.dashboardHeaderWrapper}>
-        <h1>Hello, {firstName}! Welcome to Mood Logger!</h1>
+        <h1>Hello, {firstName}!</h1>
         <div>
           <Link to={"/moods/create"} className={styles.link}>
             <div>
               <StickyNotePlus />
             </div>
-            <div>Add Mood</div>
+            <div className={styles.linkText}>Add Mood</div>
           </Link>
         </div>
       </div>
@@ -61,10 +61,10 @@ function RecentMood() {
   return (
     <div className={styles.recentMoodWrapper}>
       <div>
-        <h2>Your most recent mood:</h2>
+        <h2>Here is your most recent mood:</h2>
         <div className={styles.moodWrapper}>
           <div className={styles.moodRating}>
-            <div>Mood Rating:</div>
+            <div className={styles.text}>Rating:</div>
             <div className={styles.emoji}>{getMoodEmoji(mood.mood)}</div>
           </div>
           <div className={styles.notes}>

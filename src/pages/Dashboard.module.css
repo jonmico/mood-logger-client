@@ -1,3 +1,5 @@
+/* TODO: Figure out how to style this. */
+
 .dashboardHeaderWrapper {
   display: flex;
   justify-content: space-between;
@@ -16,10 +18,15 @@
   justify-self: center;
 }
 
+.linkText {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
 .recentMoodWrapper {
   margin-top: 0.5rem;
   max-width: 750px;
-  min-width: 400px;
 }
 
 .moodWrapper {
@@ -53,7 +60,9 @@
     border: 1px solid var(--primary-200);
     padding: 0.5rem;
     border-radius: 4px;
-    width: fit-content;
+    width: 100%;
+    height: 100px;
+    background-color: var(--background-50);
   }
 }
 
