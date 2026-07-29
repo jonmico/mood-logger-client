@@ -10,7 +10,7 @@
 
 @media (max-width: 768px) {
   .appLayoutContainer {
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 70px 1fr;
   }
 }
 

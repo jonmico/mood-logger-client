@@ -1,6 +1,10 @@
 .appNav {
   border-right: 1px solid var(--primary);
   padding: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0.25rem;
+  }
 }
 
 .appNavWrapper {
