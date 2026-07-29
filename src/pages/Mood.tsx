@@ -3,6 +3,10 @@ import type { Mood } from "../types/mood";
 import { Link, useNavigate, useParams } from "react-router";
 import { apiGetMood } from "../services/moods/apiGetMood";
 import { apiDeleteMood } from "../services/moods/apiDeleteMood";
+import { getMoodEmoji } from "../utils/getMoodEmoji";
+import styles from "./Mood.module.css";
+import { format } from "date-fns";
+import { Pencil, Trash2 } from "lucide-react";
 
 export default function Mood() {
   const [mood, setMood] = useState<Mood | null>(null);
@@ -71,14 +75,37 @@ function MoodComponent(props: MoodComponentProps) {
     return navigate("/moods");
   }
   return (
-    <div>
-      <div>{error}</div>
-      <div>{props.mood.mood}</div>
-      <div>{props.mood.notes}</div>
-      <button disabled={isLoading} onClick={handleClick}>
-        Delete Mood
-      </button>
-      <Link to={`/moods/${props.mood.id}/edit`}>Edit Mood</Link>
+    <div className={styles.moodWrapper}>
+      {error && <div>{error}</div>}
+      <h2 className={styles.moodDate}>
+        Mood from {format(new Date(props.mood.created_at), "MMMM dd, yyyy")}
+      </h2>
+      <div className={styles.moodRating}>
+        <div>Mood Rating:</div>
+        <div className={styles.emoji}>{getMoodEmoji(props.mood.mood)}</div>
+      </div>
+      <div>
+        <div className={styles.notesHeader}>Notes:</div>
+        <div className={styles.notes}>{props.mood.notes}</div>
+      </div>
+      <div className={styles.buttonLinkWrapper}>
+        <button
+          className={styles.deleteButton}
+          disabled={isLoading}
+          onClick={handleClick}
+        >
+          <div>
+            <Trash2 />
+          </div>
+          <div>Delete Mood</div>
+        </button>
+        <Link className={styles.editLink} to={`/moods/${props.mood.id}/edit`}>
+          <div>
+            <Pencil />
+          </div>
+          <div>Edit Mood</div>
+        </Link>
+      </div>
     </div>
   );
 }
