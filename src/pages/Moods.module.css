@@ -20,6 +20,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 }
 
 .moodCard {
@@ -27,4 +31,8 @@
   border: 1px solid var(--primary-300);
   border-radius: 8px;
   padding: 0.5rem;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 }
