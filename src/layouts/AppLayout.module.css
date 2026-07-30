@@ -1,7 +1,6 @@
 .appLayoutContainer {
   display: grid;
   grid-template-columns: clamp(200px, 25%, 325px) 1fr;
-  height: 100%;
 }
 
 .outletWrapper {
@@ -16,7 +15,6 @@
 
 @media (max-width: 480px) {
   .appLayoutContainer {
-    height: 100%;
     grid-template-rows: 1fr 75px;
     grid-template-columns: 1fr;
     grid-template-areas:

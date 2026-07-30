@@ -6,9 +6,7 @@ export default function App() {
   return (
     <div className={styles.app}>
       <Navbar />
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }
