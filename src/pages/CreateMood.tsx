@@ -4,10 +4,11 @@ import MoodPicker from "../components/MoodPicker";
 import { useAuth } from "../hooks/useAuth";
 import { apiCreateMood } from "../services/moods/apiCreateMood";
 import styles from "./CreateMood.module.css";
+import NotesTextArea from "../components/NotesTextArea";
 
 export default function CreateMood() {
   const [mood, setMood] = useState<null | number>(null);
-  const [text, setText] = useState("");
+  const [notes, setNotes] = useState("");
   const [moodError, setMoodError] = useState("");
   const { firstName } = useAuth();
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function CreateMood() {
       return;
     }
 
-    const submitData = await apiCreateMood(mood, text);
+    const submitData = await apiCreateMood(mood, notes);
 
     if (submitData.ok) {
       return navigate("/dashboard");
@@ -43,16 +44,7 @@ export default function CreateMood() {
           <MoodPicker mood={mood} handleClick={handleClick} />
           {moodError && <div className={styles.error}>{moodError}</div>}
         </div>
-        <div className={styles.textAreaWrapper}>
-          <label htmlFor="notes">Notes</label>
-          <textarea
-            rows={5}
-            id="notes"
-            name="notes"
-            value={text}
-            onChange={(evt) => setText(evt.target.value)}
-          />
-        </div>
+        <NotesTextArea notes={notes} setNotes={setNotes} />
         <button className={styles.submitButton} type="submit">
           Submit
         </button>

@@ -21,16 +21,6 @@
   font-weight: 500;
 }
 
-.notes {
-  border: 1px solid var(--primary-200);
-  padding: 0.5rem;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 700px;
-  height: 100px;
-  background-color: var(--background-50);
-}
-
 .buttonLinkWrapper {
   display: flex;
   gap: 1rem;

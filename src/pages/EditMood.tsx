@@ -4,6 +4,8 @@ import { apiGetMood } from "../services/moods/apiGetMood";
 import MoodPicker from "../components/MoodPicker";
 import { apiEditMood } from "../services/moods/apiEditMood";
 import Spinner from "../components/Spinner";
+import NotesTextArea from "../components/NotesTextArea";
+import styles from "./EditMood.module.css";
 
 export default function EditMood() {
   const [notes, setNotes] = useState("");
@@ -53,23 +55,17 @@ export default function EditMood() {
   if (isLoading) return <Spinner fullPage={true} />;
 
   return (
-    <div>
-      <div>Edit mood</div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.editMoodWrapper}>
+      <h2>Edit mood</h2>
+      <form className={styles.editMoodForm} onSubmit={handleSubmit}>
         <div>
           <MoodPicker mood={mood} handleClick={handleClick} />
         </div>
+        <NotesTextArea notes={notes} setNotes={setNotes} />
         <div>
-          <label htmlFor="notes">Notes</label>
-          <textarea
-            id="notes"
-            name="notes"
-            value={notes}
-            onChange={(evt) => setNotes(evt.target.value)}
-          />
-        </div>
-        <div>
-          <button type="submit">Submit</button>
+          <button className={styles.submitButton} type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>

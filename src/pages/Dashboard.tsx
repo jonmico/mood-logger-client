@@ -7,6 +7,7 @@ import styles from "./Dashboard.module.css";
 import { Link } from "react-router";
 import { StickyNotePlus } from "lucide-react";
 import Spinner from "../components/Spinner";
+import NotesDisplay from "../components/NotesDisplay";
 
 // TODO: Come up with some type of layout for Dashboard.
 
@@ -70,15 +71,7 @@ function RecentMood() {
           </div>
           <div className={styles.notes}>
             <div className={styles.notesHeader}>Notes:</div>
-            <div className={styles.notesText}>
-              {mood.notes === "" ? (
-                <div className={styles.noNotesText}>
-                  This mood doesn't have any notes!
-                </div>
-              ) : (
-                mood.notes
-              )}
-            </div>
+            <NotesDisplay notes={mood.notes} />
           </div>
           <div>
             <Link to={`/moods/${mood.id}`} className={styles.link}>

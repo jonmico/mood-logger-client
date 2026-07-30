@@ -55,20 +55,6 @@
     font-size: 1.25rem;
     font-weight: 500;
   }
-
-  .notesText {
-    border: 1px solid var(--primary-200);
-    padding: 0.5rem;
-    border-radius: 4px;
-    width: 100%;
-    height: 100px;
-    background-color: var(--background-50);
-  }
-
-  .noNotesText {
-    font-style: italic;
-    color: var(--text-600);
-  }
 }
 
 .viewMoodButton {

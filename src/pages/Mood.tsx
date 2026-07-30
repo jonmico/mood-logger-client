@@ -8,6 +8,7 @@ import styles from "./Mood.module.css";
 import { format } from "date-fns";
 import { Pencil, Trash2 } from "lucide-react";
 import Spinner from "../components/Spinner";
+import NotesDisplay from "../components/NotesDisplay";
 
 export default function Mood() {
   const [mood, setMood] = useState<Mood | null>(null);
@@ -87,7 +88,7 @@ function MoodComponent(props: MoodComponentProps) {
       </div>
       <div>
         <div className={styles.notesHeader}>Notes:</div>
-        <div className={styles.notes}>{props.mood.notes}</div>
+        <NotesDisplay notes={props.mood.notes} />
       </div>
       <div className={styles.buttonLinkWrapper}>
         <button

@@ -27,12 +27,12 @@ export default function Moods() {
   if (isLoading) return <Spinner fullPage={true} />;
 
   return (
-    <>
+    <div className={styles.moodsWrapper}>
       <div className={styles.myMoodsBanner}>
         <h2>My Moods</h2>
         <Link to={"create"} className={styles.create}>
           <PencilSparkles />
-          <div>Create Mood</div>
+          <div className={styles.createText}>Create Mood</div>
         </Link>
       </div>
       {moods.length === 0 ? (
@@ -45,7 +45,7 @@ export default function Moods() {
       ) : (
         <MoodsList moods={moods} />
       )}
-    </>
+    </div>
   );
 }
 
@@ -68,11 +68,13 @@ interface MoodCardProps {
 function MoodCard(props: MoodCardProps) {
   return (
     <li className={styles.moodCard}>
-      <div>Rating: {getMoodEmoji(props.mood.mood)}</div>
-      <div>Notes: {props.mood.notes}</div>
-      <div>
-        Created: {format(new Date(props.mood.created_at), "MMMM dd, yyyy")}
-      </div>
+      <Link to={`/moods/${props.mood.id}`}>
+        <div className={styles.dateText}>
+          {format(new Date(props.mood.created_at), "MMMM dd, yyyy")}
+        </div>
+        <div>Rating: {getMoodEmoji(props.mood.mood)}</div>
+        <div>Notes: {props.mood.notes}</div>
+      </Link>
     </li>
   );
 }
