@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import styles from "./Register.module.css";
-import { useAuth } from "../hooks/useAuth";
-import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router";
+import Spinner from "../components/Spinner";
+import { useAuth } from "../hooks/useAuth";
+import styles from "./Register.module.css";
 
 // TODO: Add value attributes to form.
 
@@ -156,7 +156,7 @@ export default function Register() {
             )}
           </div>
           <button disabled={isLoading} className={styles.button} type="submit">
-            {isLoading ? <Loader2 className={styles.spinner} /> : "Register"}
+            {isLoading ? <Spinner /> : "Register"}
           </button>
         </form>
       </div>

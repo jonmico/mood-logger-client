@@ -75,16 +75,3 @@
   border: 1px solid var(--primary-800);
   border-radius: 4px;
 }
-
-.spinner {
-  animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}

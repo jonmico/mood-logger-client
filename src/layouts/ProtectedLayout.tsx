@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
+import Spinner from "../components/Spinner";
 
 export default function ProtectedLayout() {
   const { isLoading, isLoggedIn } = useAuth();
@@ -12,5 +13,5 @@ export default function ProtectedLayout() {
     }
   }, [isLoading, isLoggedIn, navigate]);
 
-  return <>{isLoading ? <div>Loading...</div> : <Outlet />}</>;
+  return <>{isLoading ? <Spinner fullPage={true} /> : <Outlet />}</>;
 }

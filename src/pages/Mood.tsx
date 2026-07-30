@@ -7,6 +7,7 @@ import { getMoodEmoji } from "../utils/getMoodEmoji";
 import styles from "./Mood.module.css";
 import { format } from "date-fns";
 import { Pencil, Trash2 } from "lucide-react";
+import Spinner from "../components/Spinner";
 
 export default function Mood() {
   const [mood, setMood] = useState<Mood | null>(null);
@@ -32,7 +33,7 @@ export default function Mood() {
     getMood();
   }, [id]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner fullPage={true} />;
 
   if (error) return <MoodError error={error} />;
 

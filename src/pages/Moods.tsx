@@ -6,6 +6,7 @@ import type { Mood } from "../types/mood";
 import { getMoodEmoji } from "../utils/getMoodEmoji";
 import styles from "./Moods.module.css";
 import { format } from "date-fns";
+import Spinner from "../components/Spinner";
 
 // TODO: What happens if moods is empty?
 
@@ -23,8 +24,7 @@ export default function Moods() {
     fetchMoods();
   }, []);
 
-  //TODO: This is a placeholder loading state.
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner fullPage={true} />;
 
   return (
     <>

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { apiGetMood } from "../services/moods/apiGetMood";
 import MoodPicker from "../components/MoodPicker";
 import { apiEditMood } from "../services/moods/apiEditMood";
+import Spinner from "../components/Spinner";
 
 export default function EditMood() {
   const [notes, setNotes] = useState("");
@@ -49,7 +50,7 @@ export default function EditMood() {
     setMood(num);
   }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner fullPage={true} />;
 
   return (
     <div>
