@@ -1,6 +1,7 @@
 .emojiButtonWrapper {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -20,6 +21,12 @@
   &:hover {
     border: 1px solid var(--primary-600);
     background-color: var(--background-200);
+  }
+
+  @media (max-width: 480px) {
+    height: 3.25rem;
+    width: 3.25rem;
+    font-size: 1.5rem;
   }
 }
 
